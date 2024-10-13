@@ -25,24 +25,17 @@ public class RandomDataGenerator {
         long startEpoch = LocalDateTime.of(2024, 1, 1, 0, 0).toEpochSecond(ZoneOffset.UTC);
         long endEpoch = LocalDateTime.of(2024, 1, 3, 23, 59).toEpochSecond(ZoneOffset.UTC);
 
-        // Create 200 rows of random data
+        // Create 2000 rows of random data
         Row[] rows = new Row[2000];
         for (int i = 0; i < 2000; i++) {
             String column1 = values.get(random.nextInt(values.size()));
             double column2 = 10 + (90 * random.nextDouble()); // Random double between 10 and 100
             long randomEpoch = startEpoch + (long) (random.nextDouble() * (endEpoch - startEpoch));
             Instant instant = Instant.ofEpochSecond(randomEpoch);
-            Row row = RowFactory.create(column1, column2, instant);
-            rows[i] = row;
+            rows[i] = RowFactory.create(column1, column2, instant);
         }
 
-        StructType schema = new StructType(new StructField[]{
-                new StructField("Metric", DataTypes.StringType, false, Metadata.empty()),
-                new StructField("Value", DataTypes.DoubleType, false, Metadata.empty()),
-                new StructField("Timestamp", DataTypes.TimestampType, false, Metadata.empty())
-        });
-
-        Dataset<Row> df = spark.createDataFrame(Arrays.asList(rows), schema);
+        Dataset<Row> df = spark.createDataFrame(Arrays.asList(rows), App.SCHEMA);
 
         df.write().mode(SaveMode.Overwrite).csv("input");
     }
