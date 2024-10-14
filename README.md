@@ -64,7 +64,7 @@ Output format contains 5 columns:
 - MaxValue: DoubleType
 
 ## Data generation
-We generated 2000 rows of random data using the `RandomDataGenerator` and written them to `paths.input` location. 
+We generated 2000 rows of random data using the `RandomDataGenerator` and written them to `data/input` location, where they can be read by the main App. 
 
 The command to run the data generator:
 
