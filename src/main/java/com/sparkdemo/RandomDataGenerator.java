@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 
 public class RandomDataGenerator {
     public static void main(String[] args) {
+        Properties p = Util.loadProperties();
         SparkSession spark = SparkSession.builder()
                 .appName("Random Data Generator")
                 .master("local[1]")
@@ -37,7 +39,7 @@ public class RandomDataGenerator {
 
         Dataset<Row> df = spark.createDataFrame(Arrays.asList(rows), App.SCHEMA);
 
-        df.write().mode(SaveMode.Overwrite).csv("input");
+        df.write().mode(SaveMode.Overwrite).csv(p.getProperty("paths.input"));
     }
 }
 
