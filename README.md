@@ -14,6 +14,8 @@ Prerequisites: Maven + JDK 17 installation
 
 Build: `mvn clean package`
 
+Run unit tests: `mvn test`
+
 Run: `mvn exec:java -Dexec.mainClass=com.sparkdemo.App`
 
 Alternatively the code can be run using `run.sh` script
@@ -24,7 +26,7 @@ For running in Intellij you need to add following VM options: `--add-exports jav
 ```
  src
   |----main
-  |      |---java.com.sparkdemo
+  |      |---java/com/sparkdemo
   |      |              |--App.java
   |      |              |--RandomDataGenerator.java
   |      |              |--Util.java
@@ -40,7 +42,7 @@ For running in Intellij you need to add following VM options: `--add-exports jav
 sparkContext.app.name=Batch-Aggregation
 sparkContext.nthreads=number of threads for Spark locally
 
-paths.input=folder there data is read from
+paths.input=folder where data is read from
 paths.output=folder where data is written to
 
 window.duration=integer value
@@ -48,12 +50,12 @@ window.time.unit=week|day|hour|minute|second|millisecond|microsecond
 ```
 
 ## Input output format
-Input dataset contains 3 columns
+Input dataset contains 3 columns:
 - Metric: StringType
 - Value: DoubleType
 - Timestamp: TimestampType
 
-Output format contains 5 columns
+Output format contains 5 columns:
 - TimeBucketStart: TimestampType
 - TimeBucketEnd: TimestampType
 - Metric: StringType
